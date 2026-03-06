@@ -1,0 +1,15 @@
+junior-backend/
+├── app/
+│   ├── main.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── routers/
+│   │   ├── users.py
+│   │   └── chat.py
+│   ├── services/
+│   │   ├── conversation.py
+│   │   └── voice.py
+│   └── utils/
+│       └── llm_client.py
+└── tests/

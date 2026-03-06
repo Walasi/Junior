@@ -1,0 +1,9 @@
+junior-backend/
+├── app/
+│   ├── __init__.py
+│   ├── main.py                 # FastAPI app entry point
+│   └── core/
+│       ├── __init__.py
+│       └── config.py            # Configuration (environment variables)
+├── .env                          # Environment variables (optional for now)
+└── requirements.txt              # List of dependencies
