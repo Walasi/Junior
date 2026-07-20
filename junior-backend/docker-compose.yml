@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # PostgreSQL with pgvector
+  db:
+    image: ankane/pgvector:latest     # PostgreSQL with pgvector pre-installed
+    environment:
+      POSTGRES_USER: junior_user
+      POSTGRES_PASSWORD: junior_pass
+      POSTGRES_DB: junior_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U junior_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - MAIN_DATABASE_URL=postgresql://junior_user:junior_pass@db:5432/junior_db
+      - JWT_SECRET=${JWT_SECRET}
+      - FIREWORKS_API_KEY=${FIREWORKS_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRATION_MINUTES=30
+    volumes:
+      - ./junior.db:/app/junior.db   # fallback SQLite (optional)
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+volumes:
+  postgres_data:
