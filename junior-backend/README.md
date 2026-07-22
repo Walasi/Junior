@@ -34,3 +34,7 @@
 cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+
+
+
+postgresql://junior_user:0Qqll9LXNacrLfLRT5E9LyjitUVOY2Rs@dpg-d9g92qkvikkc73cu2qd0-a/junior_db_qubu
