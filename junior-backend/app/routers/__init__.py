@@ -6,4 +6,4 @@ from . import events
 from . import energy
 from . import career
 from . import social
-from . import emergency
+#from . import emergency

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth, chat, events, energy, career, social, emergency
+from app.routers import auth, chat, events, energy, career, social
 from apscheduler.schedulers.background import BackgroundScheduler
 from app.services.birthday import send_birthday_wishes
 from app.database import engine, Base
@@ -51,7 +51,7 @@ app.include_router(events.router, prefix="/events", tags=["events"])
 app.include_router(energy.router)
 app.include_router(career.router)
 app.include_router(social.router)
-app.include_router(emergency.router)
+#app.include_router(emergency.router)
 app.include_router(content_tracking.router)
 app.include_router(user.router)
 
