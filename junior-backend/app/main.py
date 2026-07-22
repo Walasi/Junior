@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth, chat, voice, events, knowledge, energy, career, social, emergency
+from app.routers import auth, chat, events, energy, career, social, emergency
 from apscheduler.schedulers.background import BackgroundScheduler
 from app.services.birthday import send_birthday_wishes
 from app.database import engine, Base
@@ -44,9 +44,9 @@ def create_tables():
 # Include routers (no duplicates)
 app.include_router(auth.router, tags=["authentication"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
-app.include_router(voice.router, prefix="/voice", tags=["voice"])
+#app.include_router(voice.router, prefix="/voice", tags=["voice"])
 app.include_router(events.router, prefix="/events", tags=["events"])
-app.include_router(knowledge.router, prefix="/knowledge", tags=["knowledge"])
+#app.include_router(knowledge.router, prefix="/knowledge", tags=["knowledge"])
 #app.include_router(writings.router, prefix="/writings", tags=["writings"])
 app.include_router(energy.router)
 app.include_router(career.router)
