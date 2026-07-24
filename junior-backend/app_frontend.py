@@ -50,7 +50,6 @@ def api_request(method, endpoint, data=None, headers=None):
 
 # ---------- THREAD MANAGEMENT ----------
 def load_threads():
-    """Fetch all threads for the current user."""
     response, err = api_request("GET", "/chat/threads")
     if err:
         st.error(f"Failed to load threads: {err}")
@@ -62,7 +61,6 @@ def load_threads():
         st.error(f"Failed to load threads (status {response.status_code})")
 
 def load_thread_messages(thread_id):
-    """Fetch messages for a specific thread."""
     response, err = api_request("GET", f"/chat/threads/{thread_id}/messages")
     if err:
         st.error(f"Failed to load messages: {err}")
@@ -77,7 +75,6 @@ def load_thread_messages(thread_id):
         st.session_state.current_thread_id = thread_id
 
 def create_new_thread():
-    """Create a new thread and switch to it."""
     response, err = api_request("POST", "/chat/threads")
     if err:
         st.error(f"Failed to create thread: {err}")
@@ -92,7 +89,6 @@ def create_new_thread():
         st.error(f"Failed to create thread (status {response.status_code})")
 
 def switch_thread(thread_id):
-    """Switch to an existing thread."""
     if thread_id != st.session_state.current_thread_id:
         load_thread_messages(thread_id)
         st.rerun()
@@ -155,10 +151,7 @@ def save_profile(profile_data):
         return None, err_msg
 
 def send_message(message, settings):
-    """Send a message to the current thread, creating one if needed."""
-    # Ensure we have a thread ID
     if st.session_state.current_thread_id is None:
-        # Create a new thread first
         response, err = api_request("POST", "/chat/threads")
         if err:
             st.error(f"Failed to create thread: {err}")
@@ -200,10 +193,19 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
+    /* Force sidebar to be always visible */
+    section[data-testid="stSidebar"] {
+        display: block !important;
+        width: 300px !important;
+        min-width: 300px !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
     section[data-testid="stSidebar"] > div {
         display: flex !important;
         flex-direction: column;
         height: 100vh;
+        overflow-y: auto !important;
     }
     .sidebar-bottom {
         margin-top: auto;
@@ -222,7 +224,6 @@ st.markdown("""
         font-weight: bold;
         font-size: 18px;
     }
-    /* Sidebar footer */
     .sidebar-footer {
         text-align: center;
         padding: 1rem 0 0.5rem 0;
@@ -245,8 +246,6 @@ st.title("🌸 Junior - Your Always-There Friend")
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
-    st.write("🔵 Sidebar is rendering")
-    st.write(f"Token exists: {st.session_state.token is not None}")
     st.header("⚙️ Settings")
     st.session_state.settings["fear_reframing"] = st.checkbox("Fear Reframing", value=st.session_state.settings["fear_reframing"])
     st.session_state.settings["triad_mode"] = st.checkbox("Triad Mode (Thoughts → Emotions → Behaviors)", value=st.session_state.settings["triad_mode"])
@@ -285,7 +284,7 @@ with st.sidebar:
                 st.session_state.current_thread_id = None
                 st.rerun()
 
-        # ---------- SIDEBAR FOOTER (only when logged in) ----------
+        # Sidebar footer
         st.markdown("""
         <div class="sidebar-footer">
             <p>© 2026 WaldisOne Tech Hub</p>
@@ -307,7 +306,7 @@ if st.session_state.token is None:
                     st.error(err)
                 else:
                     st.success("Logged in successfully!")
-                    #st.rerun()
+                    # Let Streamlit rerun naturally
     with tab2:
         with st.form("register_form"):
             reg_username = st.text_input("Username")
@@ -400,5 +399,4 @@ else:
                         time.sleep(delay)
                     placeholder.markdown(full_response)
                     st.session_state.messages.append({"role": "assistant", "content": assistant_reply})
-                    # Refresh threads to update titles
                     load_threads()
