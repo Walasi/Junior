@@ -191,7 +191,33 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
-    /* Avatar styling */
+    /* Force all checkbox labels to stay on one line */
+    div[data-testid="stCheckbox"] label {
+        white-space: nowrap !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+    div[data-testid="stCheckbox"] label span {
+        white-space: nowrap !important;
+    }
+    /* Force checkbox container to expand */
+    div[data-testid="stCheckbox"] {
+        width: 100% !important;
+        overflow: visible !important;
+    }
+    /* Buttons */
+    .stButton button {
+        text-align: left !important;
+        padding: 0.5rem 0.8rem !important;
+        margin: 0.2rem 0 !important;
+        width: 100% !important;
+        border-radius: 0.5rem !important;
+        font-size: 0.9rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
     .avatar {
         width: 40px;
         height: 40px;
@@ -205,7 +231,6 @@ st.markdown("""
         font-size: 18px;
         margin-right: 0.5rem;
     }
-    /* Sidebar footer */
     .sidebar-footer {
         text-align: center;
         padding: 1rem 0 0.5rem 0;
@@ -219,24 +244,6 @@ st.markdown("""
     }
     .sidebar-footer strong {
         color: #8b8b9b;
-    }
-    /* Buttons – full width, left aligned, no wrap */
-    .stButton button {
-        text-align: left !important;
-        padding: 0.5rem 1rem !important;
-        margin: 0.2rem 0 !important;
-        width: 100% !important;
-        border-radius: 0.5rem !important;
-        font-size: 0.9rem !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-    /* Checkbox labels – prevent awkward wrapping */
-    div[data-testid="stCheckbox"] label {
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
     }
 </style>
 """, unsafe_allow_html=True)
