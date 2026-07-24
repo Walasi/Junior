@@ -245,6 +245,8 @@ st.title("🌸 Junior - Your Always-There Friend")
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
+    st.write("🔵 Sidebar is rendering")
+    st.write(f"Token exists: {st.session_state.token is not None}")
     st.header("⚙️ Settings")
     st.session_state.settings["fear_reframing"] = st.checkbox("Fear Reframing", value=st.session_state.settings["fear_reframing"])
     st.session_state.settings["triad_mode"] = st.checkbox("Triad Mode (Thoughts → Emotions → Behaviors)", value=st.session_state.settings["triad_mode"])
@@ -293,7 +295,6 @@ with st.sidebar:
 
 # ---------- MAIN CONTENT ----------
 if st.session_state.token is None:
-    st.write(f"Token: {st.session_state.token[:20]}...")  # debug
     tab1, tab2 = st.tabs(["Login", "Register"])
     with tab1:
         with st.form("login_form"):
