@@ -191,13 +191,13 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
-    /* Sidebar – wider with comfortable padding */
+    /* Force sidebar to be always visible and wide */
     section[data-testid="stSidebar"] {
         display: flex !important;
-        width: 360px !important;
-        min-width: 360px !important;
-        max-width: 360px !important;
-        flex: 0 0 360px !important;
+        width: 400px !important;
+        min-width: 400px !important;
+        max-width: 400px !important;
+        flex: 0 0 400px !important;
         position: relative !important;
         overflow: visible !important;
         visibility: visible !important;
@@ -209,11 +209,10 @@ st.markdown("""
         height: 100vh !important;
         overflow-y: auto !important;
         width: 100% !important;
-        padding: 1.2rem 1rem !important;
+        padding: 1.5rem !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
-    /* Ensure buttons and text wrap properly */
     .stButton button {
         white-space: normal !important;
         word-wrap: break-word !important;
@@ -223,17 +222,6 @@ st.markdown("""
         width: 100% !important;
         border-radius: 0.5rem !important;
     }
-    /* Thread title buttons */
-    .stButton button[data-testid="baseButton-secondary"],
-    .stButton button[data-testid="baseButton-primary"] {
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        text-align: left !important;
-        padding: 0.5rem 0.8rem !important;
-        margin: 0.2rem 0 !important;
-        width: 100% !important;
-    }
-    /* Avatar and user info alignment */
     .avatar {
         width: 40px;
         height: 40px;
