@@ -293,6 +293,7 @@ with st.sidebar:
 
 # ---------- MAIN CONTENT ----------
 if st.session_state.token is None:
+    st.write(f"Token: {st.session_state.token[:20]}...")  # debug
     tab1, tab2 = st.tabs(["Login", "Register"])
     with tab1:
         with st.form("login_form"):
@@ -305,7 +306,7 @@ if st.session_state.token is None:
                     st.error(err)
                 else:
                     st.success("Logged in successfully!")
-                    st.rerun()
+                    #st.rerun()
     with tab2:
         with st.form("register_form"):
             reg_username = st.text_input("Username")
