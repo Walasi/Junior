@@ -191,48 +191,7 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
-    /* Sidebar – allow resizing, set a comfortable default width */
-    section[data-testid="stSidebar"] {
-        display: flex !important;
-        width: 400px;   /* default, user can drag to resize */
-        flex: 0 0 auto !important;
-        /* No max-width/min-width locks – let the user resize */
-        position: relative !important;
-        overflow: visible !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    section[data-testid="stSidebar"] > div {
-        display: flex !important;
-        flex-direction: column !important;
-        height: 100vh !important;
-        overflow-y: auto !important;
-        width: 100% !important;
-        padding: 1.5rem 1.2rem !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        box-sizing: border-box !important;
-    }
-    /* Buttons – full width, text left, no wrapping */
-    .stButton button {
-        white-space: nowrap !important;
-        text-overflow: ellipsis !important;
-        overflow: hidden !important;
-        text-align: left !important;
-        padding: 0.6rem 1rem !important;
-        margin: 0.2rem 0 !important;
-        width: 100% !important;
-        border-radius: 0.5rem !important;
-        font-size: 0.95rem !important;
-    }
-    .stButton button[data-testid="baseButton-secondary"],
-    .stButton button[data-testid="baseButton-primary"] {
-        white-space: nowrap !important;
-        text-overflow: ellipsis !important;
-        overflow: hidden !important;
-        text-align: left !important;
-        padding: 0.6rem 1rem !important;
-    }
+    /* Avatar styling */
     .avatar {
         width: 40px;
         height: 40px;
@@ -246,6 +205,7 @@ st.markdown("""
         font-size: 18px;
         margin-right: 0.5rem;
     }
+    /* Sidebar footer */
     .sidebar-footer {
         text-align: center;
         padding: 1rem 0 0.5rem 0;
@@ -260,16 +220,23 @@ st.markdown("""
     .sidebar-footer strong {
         color: #8b8b9b;
     }
-    /* Scrollbar styling (optional) */
-    section[data-testid="stSidebar"] > div::-webkit-scrollbar {
-        width: 6px;
+    /* Buttons – full width, left aligned, no wrap */
+    .stButton button {
+        text-align: left !important;
+        padding: 0.5rem 1rem !important;
+        margin: 0.2rem 0 !important;
+        width: 100% !important;
+        border-radius: 0.5rem !important;
+        font-size: 0.9rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
-    section[data-testid="stSidebar"] > div::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    section[data-testid="stSidebar"] > div::-webkit-scrollbar-thumb {
-        background: #555;
-        border-radius: 3px;
+    /* Checkbox labels – prevent awkward wrapping */
+    div[data-testid="stCheckbox"] label {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 </style>
 """, unsafe_allow_html=True)
