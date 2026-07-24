@@ -195,48 +195,38 @@ st.markdown("""
 <style>
     /* Force sidebar to be always visible */
     section[data-testid="stSidebar"] {
-        display: block !important;
+        display: flex !important;
         width: 300px !important;
         min-width: 300px !important;
+        max-width: 300px !important;
+        flex: 0 0 300px !important;
         position: relative !important;
         overflow: visible !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
     section[data-testid="stSidebar"] > div {
         display: flex !important;
-        flex-direction: column;
-        height: 100vh;
+        flex-direction: column !important;
+        height: 100vh !important;
         overflow-y: auto !important;
+        width: 100% !important;
+        visibility: visible !important;
+        opacity: 1 !important;
     }
-    .sidebar-bottom {
-        margin-top: auto;
-        padding-top: 20px;
-        border-top: 1px solid #e0e0e0;
+    /* Override any media queries that hide sidebar */
+    @media (max-width: 768px) {
+        section[data-testid="stSidebar"] {
+            display: flex !important;
+            width: 300px !important;
+            min-width: 300px !important;
+            max-width: 300px !important;
+            flex: 0 0 300px !important;
+        }
     }
-    .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #3b82f6;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 18px;
-    }
-    .sidebar-footer {
-        text-align: center;
-        padding: 1rem 0 0.5rem 0;
-        font-size: 0.75rem;
-        color: #6b7280;
-        border-top: 1px solid #3a3a4a;
-        margin-top: 0.5rem;
-    }
-    .sidebar-footer p {
-        margin: 0.2rem 0;
-    }
-    .sidebar-footer strong {
-        color: #8b8b9b;
+    /* Also fix the hamburger menu if it appears */
+    button[data-testid="baseButton-header"] {
+        display: none !important; /* optional – hides the toggle if you don't need it */
     }
 </style>
 """, unsafe_allow_html=True)
