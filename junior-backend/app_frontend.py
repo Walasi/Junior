@@ -101,7 +101,6 @@ def login(username, password):
     if response.status_code == 200:
         data = response.json()
         st.session_state.token = data["access_token"]
-        # Fetch profile
         prof_resp, _ = api_request("GET", "/user/profile")
         if prof_resp and prof_resp.status_code == 200:
             st.session_state.profile = prof_resp.json()
@@ -109,7 +108,6 @@ def login(username, password):
                 st.session_state.profile_complete = True
             else:
                 st.session_state.profile_complete = False
-        # Load threads and messages
         load_threads()
         if st.session_state.threads:
             st.session_state.current_thread_id = st.session_state.threads[0]["id"]
@@ -193,13 +191,13 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
-    /* Force sidebar to be always visible */
+    /* Sidebar – wider with comfortable padding */
     section[data-testid="stSidebar"] {
         display: flex !important;
-        width: 300px !important;
-        min-width: 300px !important;
-        max-width: 300px !important;
-        flex: 0 0 300px !important;
+        width: 360px !important;
+        min-width: 360px !important;
+        max-width: 360px !important;
+        flex: 0 0 360px !important;
         position: relative !important;
         overflow: visible !important;
         visibility: visible !important;
@@ -211,22 +209,57 @@ st.markdown("""
         height: 100vh !important;
         overflow-y: auto !important;
         width: 100% !important;
+        padding: 1.2rem 1rem !important;
         visibility: visible !important;
         opacity: 1 !important;
     }
-    /* Override any media queries that hide sidebar */
-    @media (max-width: 768px) {
-        section[data-testid="stSidebar"] {
-            display: flex !important;
-            width: 300px !important;
-            min-width: 300px !important;
-            max-width: 300px !important;
-            flex: 0 0 300px !important;
-        }
+    /* Ensure buttons and text wrap properly */
+    .stButton button {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: left !important;
+        padding: 0.5rem 0.8rem !important;
+        margin: 0.2rem 0 !important;
+        width: 100% !important;
+        border-radius: 0.5rem !important;
     }
-    /* Also fix the hamburger menu if it appears */
-    button[data-testid="baseButton-header"] {
-        display: none !important; /* optional – hides the toggle if you don't need it */
+    /* Thread title buttons */
+    .stButton button[data-testid="baseButton-secondary"],
+    .stButton button[data-testid="baseButton-primary"] {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: left !important;
+        padding: 0.5rem 0.8rem !important;
+        margin: 0.2rem 0 !important;
+        width: 100% !important;
+    }
+    /* Avatar and user info alignment */
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #3b82f6;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 18px;
+        margin-right: 0.5rem;
+    }
+    .sidebar-footer {
+        text-align: center;
+        padding: 1rem 0 0.5rem 0;
+        font-size: 0.75rem;
+        color: #6b7280;
+        border-top: 1px solid #3a3a4a;
+        margin-top: 0.5rem;
+    }
+    .sidebar-footer p {
+        margin: 0.2rem 0;
+    }
+    .sidebar-footer strong {
+        color: #8b8b9b;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -252,7 +285,7 @@ with st.sidebar:
             for thread in st.session_state.threads:
                 title = thread["title"] or "New Chat"
                 is_current = thread["id"] == st.session_state.current_thread_id
-                if st.button(title[:35], key=f"thread_{thread['id']}", use_container_width=True, type="primary" if is_current else "secondary"):
+                if st.button(title[:40], key=f"thread_{thread['id']}", use_container_width=True, type="primary" if is_current else "secondary"):
                     switch_thread(thread["id"])
         else:
             st.info("No conversations yet. Start a new chat!")
@@ -296,7 +329,6 @@ if st.session_state.token is None:
                     st.error(err)
                 else:
                     st.success("Logged in successfully!")
-                    # Let Streamlit rerun naturally
     with tab2:
         with st.form("register_form"):
             reg_username = st.text_input("Username")
