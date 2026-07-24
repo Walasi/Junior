@@ -191,13 +191,12 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 
 st.markdown("""
 <style>
-    /* Sidebar – wide enough for horizontal text */
+    /* Sidebar – allow resizing, set a comfortable default width */
     section[data-testid="stSidebar"] {
         display: flex !important;
-        width: 500px !important;
-        min-width: 500px !important;
-        max-width: 500px !important;
-        flex: 0 0 500px !important;
+        width: 400px;   /* default, user can drag to resize */
+        flex: 0 0 auto !important;
+        /* No max-width/min-width locks – let the user resize */
         position: relative !important;
         overflow: visible !important;
         visibility: visible !important;
@@ -207,16 +206,16 @@ st.markdown("""
         display: flex !important;
         flex-direction: column !important;
         height: 100vh !important;
-        overflow-y: auto !important;  /* only vertical scroll when needed */
+        overflow-y: auto !important;
         width: 100% !important;
         padding: 1.5rem 1.2rem !important;
         visibility: visible !important;
         opacity: 1 !important;
         box-sizing: border-box !important;
     }
-    /* Force buttons to be full width and text left-aligned */
+    /* Buttons – full width, text left, no wrapping */
     .stButton button {
-        white-space: nowrap !important;   /* prevent wrapping – keep text on one line */
+        white-space: nowrap !important;
         text-overflow: ellipsis !important;
         overflow: hidden !important;
         text-align: left !important;
@@ -226,7 +225,6 @@ st.markdown("""
         border-radius: 0.5rem !important;
         font-size: 0.95rem !important;
     }
-    /* Override primary/secondary button styles */
     .stButton button[data-testid="baseButton-secondary"],
     .stButton button[data-testid="baseButton-primary"] {
         white-space: nowrap !important;
@@ -235,7 +233,6 @@ st.markdown("""
         text-align: left !important;
         padding: 0.6rem 1rem !important;
     }
-    /* Avatar and user info */
     .avatar {
         width: 40px;
         height: 40px;
@@ -263,7 +260,7 @@ st.markdown("""
     .sidebar-footer strong {
         color: #8b8b9b;
     }
-    /* Hide horizontal scrollbar if any (shouldn't appear) */
+    /* Scrollbar styling (optional) */
     section[data-testid="stSidebar"] > div::-webkit-scrollbar {
         width: 6px;
     }
@@ -298,7 +295,6 @@ with st.sidebar:
             for thread in st.session_state.threads:
                 title = thread["title"] or "New Chat"
                 is_current = thread["id"] == st.session_state.current_thread_id
-                # Truncate long titles so they don't overflow
                 display_title = title[:50] + "..." if len(title) > 50 else title
                 if st.button(display_title, key=f"thread_{thread['id']}", use_container_width=True, type="primary" if is_current else "secondary"):
                     switch_thread(thread["id"])
