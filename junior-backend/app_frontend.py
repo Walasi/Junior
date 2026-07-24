@@ -201,7 +201,7 @@ st.set_page_config(page_title="Junior - Your Trusted Friend", layout="wide")
 st.markdown("""
 <style>
     section[data-testid="stSidebar"] > div {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         height: 100vh;
     }
